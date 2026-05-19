@@ -1,0 +1,64 @@
+# Fire and Smoke Detection Configuration
+# This file controls all training and inference parameters
+
+# Dataset Configuration
+dataset:
+  path: ./data                    # Path to dataset directory
+  classes:                         # Detection classes
+    - smoke
+    - fire
+  train_ratio: 0.7               # Percentage of data for training
+  val_ratio: 0.15                # Percentage of data for validation
+  test_ratio: 0.15               # Percentage of data for testing
+
+# Model Configuration
+model:
+  name: yolov8n.pt               # Model size (n, s, m, l, x)
+  epochs: 30                      # Number of training epochs
+  batch: 16                       # Batch size for training
+  imgsz: 640                      # Input image size
+  patience: 20                    # Early stopping patience
+  device: 0                       # GPU device ID (0 for first GPU, 'cpu' for CPU)
+  
+  # Augmentation
+  augment: true                   # Enable data augmentation
+  mosaic: 1.0                     # Mosaic augmentation ratio
+  mixup: 0.0                      # Mixup augmentation ratio
+  
+  # Learning rate
+  lr0: 0.01                       # Initial learning rate
+  lrf: 0.01                       # Final learning rate ratio
+  momentum: 0.937                 # SGD momentum
+  weight_decay: 0.0005            # L2 weight decay
+
+# Detection Thresholds
+thresholds:
+  fire: 0.60                      # Fire detection confidence threshold
+  smoke: 0.50                     # Smoke detection confidence threshold
+  nms: 0.45                       # Non-maximum suppression threshold
+
+# Output Configuration
+output:
+  dir: ./outputs                  # Output directory for results
+  save_plots: true                # Save training plots
+  save_conf_matrix: true          # Save confusion matrix
+  save_model: true                # Save model weights
+  save_results: true              # Save results JSON
+
+# Logging Configuration
+logging:
+  level: INFO                     # Logging level (DEBUG, INFO, WARNING, ERROR)
+  file: ./outputs/log.txt         # Log file path
+  console: true                   # Log to console
+
+# API Configuration
+api:
+  host: 0.0.0.0                   # API host
+  port: 8000                      # API port
+  debug: false                    # Debug mode
+
+# Application Configuration
+app:
+  max_upload_size: 100            # Max upload size in MB
+  temp_dir: ./temp                # Temporary directory
+  cache_results: true             # Cache prediction results
